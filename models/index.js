@@ -4,10 +4,11 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const process = require("process");
-const basename = path.basename(__filename);
+const basename = path.basename(__dirname + "/../models/index.js"); //change this line
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
+const modelPath = process.cwd() + "/models/"; //add this line
 
 let sequelize;
 if (config.use_env_variable) {
@@ -21,7 +22,7 @@ if (config.use_env_variable) {
   );
 }
 
-fs.readdirSync(__dirname)
+fs.readdirSync(modelPath)
   .filter((file) => {
     return (
       file.indexOf(".") !== 0 &&
@@ -31,7 +32,7 @@ fs.readdirSync(__dirname)
     );
   })
   .forEach((file) => {
-    const model = require(path.join(__dirname, file))(
+    const model = require(__dirname + "/../models/" + file)(
       sequelize,
       Sequelize.DataTypes
     );
