@@ -9,14 +9,13 @@ export default async function handler(
     const { userId, userName } = req.body;
     console.log({ userId, userName });
 
-    const resGetTable = await users.update(
-      { where: { id: userId } },
-      { name: userName }
-    );
+    const resFindTable = await users.findOne({ where: { id: userId } });
 
-    console.log({ resGetTable });
+    await resFindTable.update({ name: userName });
 
-    res.send({ status: "Success", resGetTable });
+    const fullTable = await users.findAll();
+
+    res.send({ status: "Success", fullTable });
   } catch (error) {
     console.log({ error });
     res.send({ error });

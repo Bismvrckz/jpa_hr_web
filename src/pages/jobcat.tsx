@@ -16,7 +16,6 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import axiosInstance from "@/library/axios";
-import { IntegerDataType } from "sequelize";
 
 export default function jobcat(props: any) {
   const [users, setUsers] = useState(props.users);
@@ -33,7 +32,7 @@ export default function jobcat(props: any) {
             {edit == user.id ? (
               <Input
                 size="xs"
-                width={"20%"}
+                width={"80%"}
                 h={"100%"}
                 value={editValue}
                 onChange={(e) => {
@@ -50,10 +49,7 @@ export default function jobcat(props: any) {
                 cursor={"pointer"}
                 color="green"
                 onClick={() => {
-                  const resEditName = editName(user.id, editValue);
-                  setUsers([...users, { id: user.id, name: editValue }]);
-                  setEditValue("");
-                  setEdit("");
+                  editName(user.id, editValue);
                 }}
               />
             ) : (
@@ -105,7 +101,7 @@ export default function jobcat(props: any) {
     }
   }
 
-  async function deleteName(userId: IntegerDataType) {
+  async function deleteName(userId: number) {
     try {
       await axios.delete("/api/users/deleteUsers", {
         params: { userId },
@@ -121,12 +117,16 @@ export default function jobcat(props: any) {
     }
   }
 
-  async function editName(userId: IntegerDataType, userName: String) {
+  async function editName(userId: number, userName: String) {
     try {
       const resEdit = await axios.patch("/api/users/editUsers", {
         userId,
         userName,
       });
+
+      setUsers(resEdit.data.fullTable);
+      setEditValue("");
+      setEdit("");
 
       return resEdit;
     } catch (error) {
