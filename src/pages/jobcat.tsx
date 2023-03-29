@@ -7,9 +7,9 @@ import {
   Td,
   Text,
   Thead,
-  Tbody,
-  Table,
   Input,
+  Table,
+  Tbody,
   Button,
   ButtonGroup,
   TableCaption,
@@ -179,18 +179,6 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    if (error instanceof Error) {
-      return {
-        props: {
-          ERROR: error.message,
-        },
-      };
-    } else {
-      return {
-        props: {
-          ERROR: "Unexpected error.",
-        },
-      };
-    }
+    return { props: { error } };
   }
 }

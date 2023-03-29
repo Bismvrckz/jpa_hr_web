@@ -8,6 +8,7 @@ import { signOut, getSession } from "next-auth/react";
 
 export default function Home(props: any) {
   const { session } = props;
+  // console.log({ session });
 
   return (
     <div className="w-[100vw] h-[100vh] text-[3rem] flex flex-col items-center justify-center">

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-export default function loginPage(props: any) {
+export default function loginPage() {
   const [isLogged, setIsLogged] = useState(false);
   const [credentials, setCredentials] = useState({
     username: "",
@@ -14,7 +14,7 @@ export default function loginPage(props: any) {
   async function getSessionAsync() {
     try {
       const session = await getSession();
-      if (session) router.replace("/");
+      if (session) router.push("/");
     } catch (error) {
       console.log({ error });
     }
@@ -64,4 +64,20 @@ export default function loginPage(props: any) {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  try {
+    const session = await getSession({ req: context.req });
+
+    if (session) {
+      return { redirect: { destination: "/" } };
+    }
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    return { props: { error } };
+  }
 }
