@@ -1,4 +1,6 @@
-export default function profile(props: any) {}
+export default function profile(props: any) {
+  return <div></div>;
+}
 
 export async function getServerSideProps() {
   try {
