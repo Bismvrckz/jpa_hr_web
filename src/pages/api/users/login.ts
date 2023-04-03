@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { compare } from "../../../../components/bcrypt";
-import jwt from "../../../../components/jwt";
+import { compare } from "../../../library/bcrypt";
+import jwt from "../../../library/jwt";
 const { users } = require("../../../../models");
 
 export default async function handler(

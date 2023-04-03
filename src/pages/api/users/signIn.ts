@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { hash } from "../../../../components/bcrypt";
+import { hash } from "../../../library/bcrypt";
 const { users } = require("../../../../models");
 
 export default async function handler(
