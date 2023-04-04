@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       job_division_name: {
         type: DataTypes.STRING,
       },
+      image: {
+        type: DataTypes.STRING,
+      },
       description: {
         type: DataTypes.STRING,
       },

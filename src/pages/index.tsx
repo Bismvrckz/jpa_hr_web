@@ -8,12 +8,28 @@ import Navbar from "../../components/navbar";
 import PopupModal from "../../components/popupModel";
 import { useEffect } from "react";
 import Image from "next/image";
-import BidangPekerjaanCard from "../../components/bidangPekerjaanCard";
+import JobDivisionsCard from "../../components/bidangPekerjaanCard";
 import axiosInstance from "@/library/axios";
 
 export default function Home(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { session } = props;
+  const { jobDivisions } = props;
+
+  function jobDivisionsMap() {
+    const array: any = [];
+    for (const jobDivision of jobDivisions) {
+      array.push(
+        <JobDivisionsCard
+          key={jobDivision.job_divisions_id}
+          name={jobDivision.job_division_name}
+          image={jobDivision.image}
+          descriptions={jobDivision.description}
+        />
+      );
+    }
+
+    return array;
+  }
 
   useEffect(() => {
     onOpen();
@@ -50,8 +66,8 @@ export default function Home(props: any) {
             Job Divisions
           </Text>
         </div>
-        <div className="pt-2 flex items-center justify-center">
-          <BidangPekerjaanCard />
+        <div className="pt-2 flex items-center justify-evenly">
+          {jobDivisionsMap()}
         </div>
       </div>
 
