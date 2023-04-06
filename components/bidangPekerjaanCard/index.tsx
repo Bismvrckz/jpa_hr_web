@@ -16,9 +16,13 @@ export default function JobDivisionsCard({ ...props }) {
   const { name, descriptions, image } = props;
 
   return (
-    <Card maxW={"sm"} borderRadius={0}>
+    <Card
+      maxW={"sm"}
+      borderRadius={0}
+      className="shadow-[0_4px_15px_3px_rgba(0,0,0,0.33)]"
+    >
       <CardHeader bg={"black"} h={"30vh"} position={"relative"}>
-        <Image src={image} alt="Green double couch with wooden legs" fill />
+        <Image src={image} alt="" fill />
       </CardHeader>
       <CardBody>
         <Stack mt="6" spacing="3">
