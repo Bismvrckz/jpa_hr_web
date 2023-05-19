@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import TambahBidangPekerjaan from "../../../components/modals/bidangPekerjaan";
 import BidangPekerjaanCardAdmin from "../../../components/cards/bidangPekerjaanAdmin";
-import Navbar from "../../../components/navbar";
 import JobDivisionArchive from "../../../components/modals/archiveBidangPekerjaan";
+import AdminNavbar from "../../../components/navbar/admin";
 
 export default function AdminDivisionLists(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,7 +55,7 @@ export default function AdminDivisionLists(props: any) {
 
   return (
     <div className="w-screen h-screen flex flex-col">
-      <Navbar />
+      <AdminNavbar />
       <div className="flex items-center justify-start w-full h-full bg-slate-400 pt-[6vh]">
         <div className="grow h-full flex flex-col items-start p-5">
           <div className=" w-full h-[20%] flex flex-col justify-evenly items-stretch">

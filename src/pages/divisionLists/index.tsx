@@ -1,30 +1,37 @@
 import axiosInstance from "@/library/axios";
 import { Button, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import Footer from "../../components/footer";
-import Navbar from "../../components/navbar";
+import { useRouter } from "next/router";
+import Footer from "../../../components/footer";
+import Navbar from "../../../components/navbar";
 
 export default function DivisionLists(props: any) {
-  const { jobLists } = props;
+  const { jobDivisions } = props;
+  const router = useRouter();
 
   function jobListMap() {
-    const { resGetJobLists } = jobLists;
+    const { resGetJobDivisions } = jobDivisions;
 
-    return resGetJobLists.map((job: any) => {
+    return resGetJobDivisions.map((jobDivision: any) => {
       return (
         <div
-          key={job.id}
-          className="w-full flex h-[20%] bg-slate-300 flex-none my-5 items-center justify-start px-5"
+          key={jobDivision.job_divisions_id}
+          className="w-full flex h-[20%] bg-slate-300 flex-none my-5 items-center justify-between px-5"
         >
           <Text w={"20%"} fontWeight={700}>
-            {job.job_name}
+            {jobDivision.job_division_name}
           </Text>
-          <Text className="grow">{job.description}</Text>
+
+          <div dangerouslySetInnerHTML={{ __html: jobDivision.detail }} />
+
           <Button
             colorScheme={"linkedin"}
             borderRadius={"0"}
             size="lg"
             fontSize={"sm"}
+            onClick={() => {
+              router.replace(`/divisionLists/${jobDivision.job_divisions_id}`);
+            }}
           >
             Detail
           </Button>
@@ -56,15 +63,18 @@ export default function DivisionLists(props: any) {
 
 export async function getServerSideProps() {
   try {
-    const jobLists = await axiosInstance.get("/api/jobs/getJobLists", {
-      params: {
-        id: "all",
-      },
-    });
+    const resAxiosJobDivisions = await axiosInstance.get(
+      "/api/jobs/get.jobDivisions",
+      {
+        params: {
+          job_divisions_id: "all",
+        },
+      }
+    );
 
     return {
       props: {
-        jobLists: jobLists.data,
+        jobDivisions: resAxiosJobDivisions.data,
       },
     };
   } catch (error) {

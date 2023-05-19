@@ -33,7 +33,8 @@ export default function AdminNavbar({ ...props }) {
 
       <div className="z-10 w-[15%] h-full py-1 pl-1">
         <div className="relative w-full h-full">
-          <Image alt="" fill src={"/imageResource/jatelindo-logo.png"} />
+          {/* <Image alt="" fill src={"/imageResource/jatelindo-logo.png"} /> */}
+          <p>Admin</p>
         </div>
       </div>
 
@@ -41,9 +42,8 @@ export default function AdminNavbar({ ...props }) {
 
       <div className="z-10 flex h-full  w-[30%] items-center justify-evenly">
         <Link href={"/"}>Home</Link>
-        <Link href={"/divisionLists"}>List Bidang</Link>
-        <Link href={"/jobLists"}>List Lowongan</Link>
-        <Link href={"/"}>List Bidang Pekerjaan</Link>
+        <Link href={"/admin/jobLists"}>List Lowongan</Link>
+        <Link href={"/admin/divisionLists"}>List Bidang Pekerjaan</Link>
         {isLoggedIn ? (
           <p
             className="cursor-pointer"

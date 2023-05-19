@@ -63,6 +63,7 @@ export default function Home(props: any) {
       array.push(
         <JobDivisionsCard
           key={jobDivision.job_divisions_id}
+          id={jobDivision.job_divisions_id}
           name={jobDivision.job_division_name}
           image={jobDivision.imageDir}
           // descriptions={jobDivision.summary}
@@ -166,7 +167,7 @@ export async function getServerSideProps(context: any) {
       "/api/jobs/get.jobDivisions",
       {
         params: {
-          job_divisions_id: "all",
+          limit: 3,
         },
       }
     );

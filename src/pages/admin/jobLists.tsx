@@ -3,7 +3,7 @@ import { Button, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import { JobListCardAdmin } from "../../../components/cards/jobListsAdmin";
 import TambahJobAdmin from "../../../components/modals/jobList";
-import Navbar from "../../../components/navbar";
+import AdminNavbar from "../../../components/navbar/admin";
 
 export default function AdminJobLists(props: any) {
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -20,7 +20,7 @@ export default function AdminJobLists(props: any) {
 
   return (
     <div className="w-screen h-screen flex flex-col">
-      <Navbar />
+      <AdminNavbar />
       <div className="h-full w-full pt-[6vh] bg-orange-400 flex">
         <div className="w-[15%] p-3 flex">
           <Button onClick={onOpen}>Tambah Job +</Button>

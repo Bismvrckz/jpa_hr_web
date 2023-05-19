@@ -7,17 +7,21 @@ const handler = nextConnect();
 
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { job_divisions_id } = req.query;
+    const { job_divisions_id, limit, offset, avoid } = req.query;
 
-    if (job_divisions_id == "all") {
-      const resGetJobDivisions = await job_divisions.findAll();
-      //   {
-      //   where: {
-      //     postingStatus: {
-      //       [Op.not]: "ARCHIVE",
-      //     },
-      //   },
-      // }
+    if (job_divisions_id == "all" || !job_divisions_id) {
+      const resGetJobDivisions = await job_divisions.findAll({
+        where: {
+          // postingStatus: {
+          //   [Op.not]: "ARCHIVE",
+          // },
+          job_divisions_id: {
+            [Op.not]: avoid || null,
+          },
+        },
+        limit: parseInt(limit) || null,
+        offset: offset || null,
+      });
 
       return res.send({ status: "Success", resGetJobDivisions });
     }

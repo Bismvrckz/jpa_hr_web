@@ -41,8 +41,8 @@ export default function Navbar({ ...props }) {
 
       <div className="z-10 flex h-full  w-[30%] items-center justify-evenly">
         <Link href={"/"}>Home</Link>
-        <Link href={"/admin/jobLists"}>List Lowongan</Link>
-        <Link href={"/admin/divisionLists"}>List Bidang Pekerjaan</Link>
+        <Link href={"/"}>List Lowongan</Link>
+        <Link href={"/divisionLists"}>List Bidang Pekerjaan</Link>
         {isLoggedIn ? (
           <p
             className="cursor-pointer"
