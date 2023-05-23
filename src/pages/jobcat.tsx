@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import axiosInstance from "@/library/axios";
 
-export default function jobcat(props: any) {
+export default function Jobcat(props: any) {
   const [users, setUsers] = useState(props.users);
   const [nameInput, setNameInput] = useState("");
   const [edit, setEdit] = useState("");

@@ -45,7 +45,7 @@ module.exports = {
       },
       postingStatus: {
         allowNull: false,
-        type: Sequelize.ENUM("DRAFT", "PUBLISH"),
+        type: Sequelize.ENUM("DRAFT", "PUBLISH", "ARCHIVE"),
       },
       level: {
         allowNull: false,

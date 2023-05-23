@@ -22,22 +22,39 @@ import type { NextPage } from "next";
 
 interface Props {
   job: any;
+  setJobList: any;
 }
 
 export const JobListCardAdmin: NextPage<Props> = ({ ...props }) => {
-  const { job } = props;
+  const { setJobList, job } = props;
   const {
+    batasPengiriman,
+    postingStatus,
     job_list_id,
-    job_name,
-    sort_desc,
-    imageDir,
-    job_divisions_id,
     min_salary,
     max_salary,
-    postingStatus,
+    sort_desc,
+    job_name,
+    imageDir,
     level,
-    batasPengiriman,
   } = job;
+
+  async function changeStatusFunction(event: any) {
+    try {
+      const resAxiosChangeStatus = await axiosInstance.patch(
+        "/api/jobs/patch.postingStatusJob",
+        {
+          job_list_id,
+          postingStatus: event.target.value,
+        }
+      );
+
+      const { update } = resAxiosChangeStatus.data;
+      setJobList(update);
+    } catch (error) {
+      console.log({ error });
+    }
+  }
 
   return (
     <Card
@@ -86,15 +103,22 @@ export const JobListCardAdmin: NextPage<Props> = ({ ...props }) => {
             Delete
           </Button>
 
-          {/* <Popover colorScheme={"linkedin"}>
+          <Popover colorScheme={"linkedin"}>
             <PopoverTrigger>
               <Button
                 variant={"ghost"}
-                // color/
+                colorScheme={
+                  postingStatus == "PUBLISH"
+                    ? "green"
+                    : postingStatus == "DRAFT"
+                    ? "red"
+                    : "linkedin"
+                }
               >
                 Status: {postingStatus}
               </Button>
             </PopoverTrigger>
+
             <PopoverContent width={"20vh"}>
               <PopoverArrow />
               <PopoverCloseButton />
@@ -106,23 +130,23 @@ export const JobListCardAdmin: NextPage<Props> = ({ ...props }) => {
               >
                 <Button
                   variant={"ghost"}
-                    onClick={changeStatusFunction}
-                    value={postingStatus == "PUBLISH" ? "DRAFT" : "PUBLISH"}
-                    colorScheme={postingStatus == "PUBLISH" ? "red" : "green"}
+                  onClick={changeStatusFunction}
+                  value={postingStatus == "PUBLISH" ? "DRAFT" : "PUBLISH"}
+                  colorScheme={postingStatus == "PUBLISH" ? "red" : "green"}
                 >
                   {postingStatus == "PUBLISH" ? "Draft" : "Publish"}
                 </Button>
                 <Button
-                  value={"Archive"}
+                  value={"ARCHIVE"}
                   variant={"outline"}
-                    onClick={changeStatusFunction}
+                  onClick={changeStatusFunction}
                   colorScheme={"facebook"}
                 >
                   Archive
                 </Button>
               </PopoverBody>
             </PopoverContent>
-          </Popover> */}
+          </Popover>
         </CardFooter>
       </Stack>
     </Card>

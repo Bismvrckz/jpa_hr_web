@@ -10,13 +10,9 @@ export default function JobDivisionsDetail(props: any) {
   const { jobDivision, allJobDivision } = props;
   const [jobDetail, setJobDetail] = useState();
 
-  //   const [jobDivisionsRecommendation, setJobDivisionsRecommendation] =
-  //     useState();
-  //   const [page, setPage] = useState(1);
-
   useEffect(() => {
     setJobDetail(jobDivision.detail);
-  }, []);
+  }, [jobDivision.detail]);
 
   function jobDivisionsMap() {
     const array: any[] = [];
@@ -27,7 +23,6 @@ export default function JobDivisionsDetail(props: any) {
           id={jobDivision.job_divisions_id}
           name={jobDivision.job_division_name}
           image={jobDivision.imageDir}
-          // descriptions={jobDivision.summary}
         />
       );
     }

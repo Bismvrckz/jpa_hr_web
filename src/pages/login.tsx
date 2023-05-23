@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-export default function loginPage() {
+export default function LoginPage() {
   const [isLogged, setIsLogged] = useState(false);
   const [credentials, setCredentials] = useState({
     username: "",

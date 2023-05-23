@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       postingStatus: {
         allowNull: false,
-        type: DataTypes.ENUM("DRAFT", "PUBLISH"),
+        type: DataTypes.ENUM("DRAFT", "PUBLISH", "ARCHIVE"),
         defaultValue: "DRAFT",
       },
       level: {

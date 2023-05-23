@@ -13,7 +13,7 @@ export default function AdminDivisionLists(props: any) {
     props.jobDivisions
   );
 
-  function jobDivisionArchiveModal() {
+  function JobDivisionArchiveModal() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
       <div>
@@ -62,7 +62,7 @@ export default function AdminDivisionLists(props: any) {
             <Button size={"lg"} onClick={onOpen}>
               Bidang Baru +
             </Button>
-            {jobDivisionArchiveModal()}
+            {JobDivisionArchiveModal()}
             <Link href={"/"}>
               <Button size={"lg"}>Go back</Button>
             </Link>
@@ -75,7 +75,7 @@ export default function AdminDivisionLists(props: any) {
           </div>
         </div>
 
-        {/* {jobDivisionArchiveModal()} */}
+        {/* {JobDivisionArchiveModal()} */}
 
         <div className="bg-orange-400 w-[90%] h-full flex items-center justify-center">
           <div className="bg-slate-300 w-[90%] h-[90%] rounded-lg flex flex-col overflow-auto px-[1vh]">

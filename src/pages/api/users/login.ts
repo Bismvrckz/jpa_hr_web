@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { compare } from "../../../library/bcrypt";
 import jwt from "../../../library/jwt";
+// import jwt
 const { users } = require("../../../../models");
 
 export default async function handler(

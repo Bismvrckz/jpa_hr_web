@@ -24,7 +24,6 @@ import TambahBidangPekerjaan from "../modals/bidangPekerjaan";
 interface Props {
   name: any;
   image: any;
-  // summary: any;
   detail: any;
   postingStatus: any;
   id: any;
@@ -32,15 +31,8 @@ interface Props {
 }
 
 const BidangPekerjaanCardAdmin: NextPage<Props> = ({ ...props }) => {
-  const {
-    name,
-    image,
-    // summary,
-    detail,
-    id,
-    setJobDivisionsState,
-    postingStatus,
-  } = props;
+  const { name, image, detail, id, setJobDivisionsState, postingStatus } =
+    props;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
   const toast = useToast();
@@ -70,7 +62,7 @@ const BidangPekerjaanCardAdmin: NextPage<Props> = ({ ...props }) => {
   async function changeStatusFunction(event: any) {
     try {
       const resAxiosChangeStatus = await axiosInstance.patch(
-        "/api/jobs/patch.postingStatus",
+        "/api/jobs/patch.postingStatusDivision",
         {
           id,
           postingStatus: event.target.value,
@@ -96,7 +88,6 @@ const BidangPekerjaanCardAdmin: NextPage<Props> = ({ ...props }) => {
       <TambahBidangPekerjaan
         setJobDivisionsState={setJobDivisionsState}
         postingStatus={postingStatus}
-        // summary={summary}
         onClose={onClose}
         detail={detail}
         isOpen={isOpen}
@@ -120,8 +111,6 @@ const BidangPekerjaanCardAdmin: NextPage<Props> = ({ ...props }) => {
       <Stack w={"85%"}>
         <CardBody>
           <Heading size="md">{name}</Heading>
-
-          {/* <Text py="2">{summary}</Text> */}
         </CardBody>
 
         <CardFooter>
@@ -153,6 +142,7 @@ const BidangPekerjaanCardAdmin: NextPage<Props> = ({ ...props }) => {
                 Status: {postingStatus}
               </Button>
             </PopoverTrigger>
+
             <PopoverContent width={"20vh"}>
               <PopoverArrow />
               <PopoverCloseButton />
@@ -171,7 +161,7 @@ const BidangPekerjaanCardAdmin: NextPage<Props> = ({ ...props }) => {
                   {postingStatus == "PUBLISH" ? "Draft" : "Publish"}
                 </Button>
                 <Button
-                  value={"Archive"}
+                  value={"ARCHIVE"}
                   variant={"outline"}
                   onClick={changeStatusFunction}
                   colorScheme={"facebook"}

@@ -57,7 +57,7 @@ export default function TambahBidangPekerjaan({ ...props }) {
     if (name) {
       setIsEdit(true);
     }
-  }, []);
+  }, [name]);
 
   const handleChangeInputs = (prop: any) => (event: any) => {
     setJobInputs({ ...jobInputs, [prop]: event.target.value });

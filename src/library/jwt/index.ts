@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+import { Json } from "sequelize/types/utils";
 const { SECRET_WORD } = process.env;
 
 function createToken(payload: string) {
