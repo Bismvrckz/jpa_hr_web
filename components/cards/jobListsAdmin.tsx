@@ -19,14 +19,17 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import type { NextPage } from "next";
+import TambahJobAdmin from "../modals/jobList";
 
 interface Props {
+  jobDivisions: any;
   job: any;
   setJobList: any;
 }
 
 export const JobListCardAdmin: NextPage<Props> = ({ ...props }) => {
-  const { setJobList, job } = props;
+  const { setJobList, job, jobDivisions } = props;
+  const { onOpen, onClose, isOpen } = useDisclosure();
   const {
     batasPengiriman,
     postingStatus,
@@ -86,13 +89,17 @@ export const JobListCardAdmin: NextPage<Props> = ({ ...props }) => {
         </CardBody>
 
         <CardFooter>
-          <Button
-            variant="ghost"
-            colorScheme="facebook"
-            //   onClick={onOpen}
-          >
+          <Button variant="ghost" colorScheme="facebook" onClick={onOpen}>
             Edit
           </Button>
+
+          <TambahJobAdmin
+            jobDivisions={jobDivisions}
+            onClose={onClose}
+            isOpen={isOpen}
+            onOpen={onOpen}
+            job={job}
+          />
 
           <Button
             variant="ghost"

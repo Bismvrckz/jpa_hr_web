@@ -23,12 +23,13 @@ export default function JobArchiveModal({ ...props }) {
       const resUnarchiveJob = await axiosInstance.patch(
         "/api/jobs/patch.postingStatusJob",
         {
-          id: event.target.value,
+          job_list_id: event.target.value,
           postingStatus: "DRAFT",
         }
       );
 
       const { update } = resUnarchiveJob.data;
+
       setJobList(update);
     } catch (error) {
       console.log({ error });
@@ -37,8 +38,6 @@ export default function JobArchiveModal({ ...props }) {
 
   function jobDivisionArchiveMap() {
     return jobList.map((job: any) => {
-      console.log(job.postingStatus);
-
       if (job.postingStatus != "ARCHIVE") return;
 
       return (
@@ -50,17 +49,17 @@ export default function JobArchiveModal({ ...props }) {
           alignItems={"center"}
           justifyContent={"space-between"}
           mb={"3"}
-          key={job.job_divisions_id}
+          key={job.job_list_id}
         >
           <div>
-            <CardHeader>{job.job_division_name}</CardHeader>
+            <CardHeader>{job.job_name}</CardHeader>
           </div>
           <div>
             <CardBody>
               <Tooltip hasArrow label="Click to unarchive">
                 <Button
                   onClick={onClickUnarchiveButton}
-                  value={job.job_divisions_id}
+                  value={job.job_list_id}
                   colorScheme={"facebook"}
                 >
                   Status: Archive

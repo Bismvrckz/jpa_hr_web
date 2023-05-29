@@ -21,6 +21,7 @@ export default function AdminJobLists(props: any) {
 
       array.push(
         <JobListCardAdmin
+          jobDivisions={resGetJobDivisions}
           setJobList={setJobList}
           key={job.job_list_id}
           job={job}
@@ -29,18 +30,9 @@ export default function AdminJobLists(props: any) {
     }
 
     return array;
-    return jobList.map((job: any) => {
-      return (
-        <JobListCardAdmin
-          setJobList={setJobList}
-          key={job.job_list_id}
-          job={job}
-        />
-      );
-    });
   }
 
-  function jobArchiveModal() {
+  function JobArchiveModalFuntion() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
       <div>
@@ -65,7 +57,7 @@ export default function AdminJobLists(props: any) {
           <Button mb={3} onClick={onOpen}>
             Tambah Job +
           </Button>
-          {jobArchiveModal()}
+          {JobArchiveModalFuntion()}
           <TambahJobAdmin
             isOpen={isOpen}
             onClose={onClose}

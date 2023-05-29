@@ -19,31 +19,66 @@ import {
   NumberInputField,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function TambahJobAdmin({ ...props }) {
-  const { isOpen, onClose, jobDivisions, setJobList } = props;
-  const [value, setValue] = useState("");
+  const { isOpen, onClose, jobDivisions, setJobList, job } = props;
+
   const toast = useToast();
 
   const [imageInputField, setImageInputField] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
   const [jobImage, setJobImage] = useState("");
   const [inputs, setInputs] = useState({
     job_list_id: new Date().getTime(),
-    level: "",
-    imageDir: "",
-    job_name: "",
-    sort_desc: "",
+    job_divisions_id: "",
+    batasPengiriman: "",
+    postingStatus: "",
     full_desc: "",
+    sort_desc: "",
     min_salary: 0,
     max_salary: 0,
-    postingStatus: "",
-    batasPengiriman: "",
-    job_divisions_id: "",
+    imageDir: "",
+    job_name: "",
+    level: "",
   });
+
+  useEffect(() => {
+    if (job) {
+      const {
+        job_divisions_id,
+        batasPengiriman,
+        postingStatus,
+        job_list_id,
+        min_salary,
+        max_salary,
+        sort_desc,
+        full_desc,
+        job_name,
+        imageDir,
+        level,
+      } = job;
+
+      setIsEdit(true);
+      setInputs({
+        job_list_id: job_list_id,
+        level: level,
+        imageDir: imageDir,
+        job_name: job_name,
+        sort_desc: sort_desc,
+        full_desc: full_desc,
+        min_salary: parseInt(min_salary),
+        max_salary: parseInt(max_salary),
+        postingStatus: postingStatus,
+        batasPengiriman: batasPengiriman,
+        job_divisions_id: job_divisions_id,
+      });
+      setImageInputField(imageDir);
+    }
+  }, []);
 
   const handleInputChange = (prop: string) => (event: any) => {
     if (prop == "batasPengiriman")
@@ -122,13 +157,6 @@ export default function TambahJobAdmin({ ...props }) {
   }
 
   function onCancel() {
-    // setJobInputs({
-    //   id: id || new Date().getTime(),
-    //   namaBidangPekerjaan: name || "",
-    //   summary: summary || "",
-    //   detail: detail || "",
-    //   image: image || "",
-    // });
     onClose();
   }
 
@@ -142,17 +170,21 @@ export default function TambahJobAdmin({ ...props }) {
     >
       <ModalOverlay />
       <ModalContent height={"60vh"}>
-        <ModalCloseButton />
         <ModalHeader>Job</ModalHeader>
 
         <ModalBody>
           <div className="flex h-[20%]">
             <div className="w-[50%] flex flex-col justify-between">
               <Text>Judul & Level Job</Text>
-              <Input w={"90%"} onChange={handleInputChange("job_name")} />
+              <Input
+                value={inputs.job_name}
+                w={"90%"}
+                onChange={handleInputChange("job_name")}
+              />
 
               <Select
                 placeholder="Pilih level"
+                value={inputs.level}
                 size={"sm"}
                 w={"90%"}
                 rounded={"md"}
@@ -168,6 +200,7 @@ export default function TambahJobAdmin({ ...props }) {
               <Text>Deskripsi Singkat</Text>
               <Textarea
                 resize={"none"}
+                value={inputs.sort_desc}
                 onChange={handleInputChange("sort_desc")}
               />
             </div>
@@ -189,7 +222,12 @@ export default function TambahJobAdmin({ ...props }) {
             <div className="w-[45%] flex justify-between">
               <div className="w-[45%]">
                 <Text>Minimum Gaji</Text>
-                <NumberInput step={1000000} min={0} max={inputs.max_salary}>
+                <NumberInput
+                  value={inputs.min_salary}
+                  step={1000000}
+                  min={0}
+                  max={inputs.max_salary}
+                >
                   <NumberInputField
                     onChange={(event) => {
                       setInputs({
@@ -198,16 +236,16 @@ export default function TambahJobAdmin({ ...props }) {
                       });
                     }}
                   />
-                  {/* <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper> */}
                 </NumberInput>
               </div>
 
               <div className="w-[45%]">
                 <Text>Maksimum Gaji</Text>
-                <NumberInput step={1000000} min={inputs.min_salary}>
+                <NumberInput
+                  value={inputs.max_salary}
+                  step={1000000}
+                  min={inputs.min_salary}
+                >
                   <NumberInputField
                     onChange={(event) => {
                       setInputs({
@@ -216,10 +254,6 @@ export default function TambahJobAdmin({ ...props }) {
                       });
                     }}
                   />
-                  {/* <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper> */}
                 </NumberInput>
               </div>
             </div>
@@ -277,6 +311,9 @@ export default function TambahJobAdmin({ ...props }) {
             <option value={"PUBLISH"}>Publish</option>
             <option value={"DRAFT"}>Draft</option>
           </Select>
+          <Button colorScheme="red" ml={"3"} onClick={onCancel}>
+            Cancel
+          </Button>
           <Button colorScheme="blue" ml={"3"} onClick={onClickSubmit}>
             Submit
           </Button>
