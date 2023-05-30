@@ -118,6 +118,24 @@ export default function TambahJobAdmin({ ...props }) {
         params: inputs,
       };
 
+      if (isEdit) {
+        const resPatchJob = await axiosInstance.patch(
+          "/api/jobs/patch.job",
+          imageBody,
+          config
+        );
+
+        toast({
+          status: "success",
+          position: "top",
+          isClosable: true,
+          title: "Success",
+          description: "Sukses update job",
+        });
+        onClose();
+        return;
+      }
+
       const resPostJob = await axiosInstance.post(
         "/api/images/post.newJobImage",
         imageBody,
@@ -272,6 +290,7 @@ export default function TambahJobAdmin({ ...props }) {
               <Text>Bidang Job</Text>
               <Select
                 placeholder="Pilih Bidang"
+                value={inputs.job_divisions_id}
                 onChange={handleInputChange("job_divisions_id")}
               >
                 {jobDivisionsOptionMap()}
@@ -315,7 +334,7 @@ export default function TambahJobAdmin({ ...props }) {
             Cancel
           </Button>
           <Button colorScheme="blue" ml={"3"} onClick={onClickSubmit}>
-            Submit
+            {isEdit ? "Save" : "Submit"}
           </Button>
         </ModalFooter>
       </ModalContent>

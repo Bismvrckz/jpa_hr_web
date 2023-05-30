@@ -8,19 +8,12 @@ handler.use(uploadNewDivisionsImage);
 
 handler.patch(async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const {
-      namaBidangPekerjaan,
-      // summary,
-      detail,
-      id,
-      postingStatus,
-    } = req.query;
+    const { namaBidangPekerjaan, detail, id, postingStatus } = req.query;
 
     await job_divisions.update(
       {
         job_division_name: namaBidangPekerjaan,
         postingStatus,
-        // summary,
         detail,
       },
       {

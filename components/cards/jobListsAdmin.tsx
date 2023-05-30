@@ -42,6 +42,8 @@ export const JobListCardAdmin: NextPage<Props> = ({ ...props }) => {
     level,
   } = job;
 
+  async function deleteJobDivisions() {}
+
   async function changeStatusFunction(event: any) {
     try {
       const resAxiosChangeStatus = await axiosInstance.patch(
@@ -105,7 +107,7 @@ export const JobListCardAdmin: NextPage<Props> = ({ ...props }) => {
             variant="ghost"
             colorScheme="red"
             marginX={"5"}
-            // onClick={deleteJobDivisions}
+            onClick={deleteJobDivisions}
           >
             Delete
           </Button>
